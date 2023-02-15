@@ -8,10 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Locator.api\Locator.api.csproj" />
     <ProjectReference Include="..\Locator.Business\Locator.Business.csproj" />
   </ItemGroup>
 

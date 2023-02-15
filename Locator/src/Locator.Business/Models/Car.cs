@@ -8,7 +8,7 @@ namespace Locator.Business.Models
 {
     public class Car : Vehicle
     {
-        public Characteristics characteristics { get; set; }
-        public Optional optional { get; set; }
+        public Characteristics Characteristics { get; set; }
+        public Optional Optional { get; set; }
     }
 }

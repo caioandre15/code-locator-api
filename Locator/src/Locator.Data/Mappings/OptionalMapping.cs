@@ -54,6 +54,8 @@ namespace Locator.Data.Mappings
             builder.Property(c => c.QuantitiesOfBags)
                 .IsRequired()
                 .HasColumnType("int");
+
+            builder.ToTable("Optionals");
         }
     }
 }

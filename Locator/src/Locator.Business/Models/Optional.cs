@@ -8,6 +8,7 @@ namespace Locator.Business.Models
 {
     public class Optional : Entity
     {
+        public Guid CarId { get; set; }
         public bool ElectricWindow { get; set; }
         public bool EletricLock { get; set; }
         public bool HydraulicSteering { get; set; }
@@ -20,7 +21,6 @@ namespace Locator.Business.Models
         public int QuantitiesOfBags { get; set; }
 
         // EF Relation
-        public Guid CarId { get; set; }
         public Car Car { get; set; }
 
     }

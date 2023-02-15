@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Locator.Data.Mappings
 {
-    public class CharacteristicsMapping : IEntityTypeConfiguration<Characteristics>
+    public class CharacteristicMapping : IEntityTypeConfiguration<Characteristic>
     {
-        public void Configure(EntityTypeBuilder<Characteristics> builder)
+        public void Configure(EntityTypeBuilder<Characteristic> builder)
         {
             builder.HasKey(p => p.Id);
 

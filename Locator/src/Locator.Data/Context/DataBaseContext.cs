@@ -18,8 +18,8 @@ namespace Locator.Data.Context
         }
 
         public DbSet<Car> Cars { get; set; }
-        public DbSet<Characteristics> Characteristics { get; set; }
-        public DbSet<Optional> Opcional { get; set; }
+        public DbSet<Characteristic> Characteristics { get; set; }
+        public DbSet<Optional> Opcionals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

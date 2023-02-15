@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Locator.Business.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace Locator.Data.Context
         {
 
         }
+
+        public DbSet<Car> Cars { get; set; }
     }
 }

@@ -17,31 +17,31 @@ namespace Locator.Data.Mappings
 
             builder.Property(c => c.ElectricWindow)
                 .IsRequired()
-                .HasColumnType("bool");
+                .HasColumnType("bit");
 
             builder.Property(c => c.EletricLock)
                 .IsRequired()
-                .HasColumnType("bool");
+                .HasColumnType("bit");
 
             builder.Property(c => c.HydraulicSteering)
                 .IsRequired()
-                .HasColumnType("bool");
+                .HasColumnType("bit");
 
             builder.Property(c => c.AirBag)
                 .IsRequired()
-                .HasColumnType("bool");
+                .HasColumnType("bit");
 
             builder.Property(c => c.Abs)
                 .IsRequired()
-                .HasColumnType("bool");
+                .HasColumnType("bit");
 
             builder.Property(c => c.AutomaticTransmission)
                 .IsRequired()
-                .HasColumnType("bool");
+                .HasColumnType("bit");
 
             builder.Property(c => c.AirConditioning)
                 .IsRequired()
-                .HasColumnType("bool");
+                .HasColumnType("bit");
 
             builder.Property(c => c.QuantitiesOfDoorserty)
                 .IsRequired()

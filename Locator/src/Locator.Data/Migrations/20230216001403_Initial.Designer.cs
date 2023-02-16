@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Locator.Data.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20230215170255_Initial")]
+    [Migration("20230216001403_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -108,28 +108,28 @@ namespace Locator.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Abs")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("AirBag")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("AirConditioning")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("AutomaticTransmission")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("ElectricWindow")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("EletricLock")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("HydraulicSteering")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<int>("QuantitiesOfBags")
                         .HasColumnType("int");

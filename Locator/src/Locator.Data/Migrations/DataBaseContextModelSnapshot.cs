@@ -105,28 +105,28 @@ namespace Locator.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Abs")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("AirBag")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("AirConditioning")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("AutomaticTransmission")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("CarId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("ElectricWindow")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("EletricLock")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("HydraulicSteering")
-                        .HasColumnType("bool");
+                        .HasColumnType("bit");
 
                     b.Property<int>("QuantitiesOfBags")
                         .HasColumnType("int");

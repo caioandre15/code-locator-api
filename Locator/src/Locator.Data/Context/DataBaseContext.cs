@@ -31,7 +31,7 @@ namespace Locator.Data.Context
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataBaseContext).Assembly);
 
             //Para não deletar dados em cascata
-            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
+            //foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
 
             base.OnModelCreating(modelBuilder);
         }

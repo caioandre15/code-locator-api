@@ -6,6 +6,8 @@ using Locator.Data.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Locator.Business.Interface;
+using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,21 +18,21 @@ namespace Locator.api.Controllers
     public class CarController : ControllerBase
     {
         private readonly DataBaseContext _context;
+        private readonly ICarService _carService;
         private readonly IMapper _mapper;
 
-        public CarController(DataBaseContext context, IMapper mapper)
+        public CarController(DataBaseContext context, IMapper mapper, ICarService carService)
         {
             _context = context;
             _mapper = mapper;
+            _carService = carService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CarDto>>> GetCars()
         {
-            var carList = _mapper.Map<IEnumerable<CarDto>>(await _context.Cars
-                .Include(p => p.Characteristics)
-                .Include(p => p.Optional)
-                .ToListAsync());
+
+            var carList = _mapper.Map<IEnumerable<CarDto>>(await _carService.GetListCars());
 
             return Ok(carList);
         }
@@ -38,10 +40,7 @@ namespace Locator.api.Controllers
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CarDto>> GetCar(Guid id)
         {
-            var car = _mapper.Map<CarDto>(await _context.Cars
-                .Include(p => p.Characteristics)
-                .Include(p => p.Optional)
-                .FirstOrDefaultAsync(x => x.Id == id));
+            var car = _mapper.Map<CarDto>(await _carService.GetCarById(id));
 
             if (car == null) return NotFound();
 
@@ -49,22 +48,17 @@ namespace Locator.api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CarDto>> PostCar(CarDto carDto)
+        public async Task<ActionResult> PostCar(CarDto carDto)
         {
             if (carDto == null)
                 return BadRequest();
 
             var car = _mapper.Map<Car>(carDto);
-            car.Characteristics.CarId = car.Id;
-            car.Optional.CarId = car.Id;
-            carDto.Characteristics.CarId = car.Id;
-            carDto.Optional.CarId = car.Id;
+            
+            var result = await _carService.CreateCar(car);
+            if (result <= 0) return BadRequest();
 
-            _context.Cars.Add(car);
-
-            await _context.SaveChangesAsync();
-
-            return Ok(carDto);
+            return Ok();
         }
 
         [HttpPut("{id:guid}")]
@@ -73,22 +67,12 @@ namespace Locator.api.Controllers
 
             if (id != carDtoUpdate.Id) return BadRequest();
 
-            var car = _context.Cars
-                .Include(p => p.Characteristics)
-                .Include(p => p.Optional)
-                .FirstOrDefault(x => x.Id == id);
-
+            var car = await _carService.GetCarById(id);
             if (car == null) return NotFound();
 
-            //car.Name = carDtoUpdate.Name;
-
             car = _mapper.Map(carDtoUpdate, car);
-
-            _context.Entry(car).State = EntityState.Modified; 
-
-            //_context.Update(car);
-
-            _context.SaveChanges();
+            var result = await _carService.UpdateCar(car);
+            if (result <= 0) return BadRequest();
 
             return NoContent();
         }
@@ -96,28 +80,16 @@ namespace Locator.api.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteCar(Guid id)
         {
-            var car = await _context.Cars.FindAsync(id);
+            var car = await _carService.GetCarById(id);
             if (car == null)
             {
                 return NotFound();
             }
-            var characteristic = await _context.Characteristics.FirstOrDefaultAsync(x => x.CarId == id);
-            if (characteristic != null)
-                _context.Characteristics.Remove(characteristic);
 
-            var optional = await _context.Opcionals.FirstOrDefaultAsync(x => x.CarId == id);
-            if (optional != null)
-                _context.Opcionals.Remove(optional);
-
-            _context.Cars.Remove(car);
-            await _context.SaveChangesAsync();
+            var result = await _carService.DeleteCar(car);
+            if (result <= 0) return BadRequest();
 
             return Ok();
-        }
-
-        private bool CarExists(Guid id)
-        {
-            return _context.Cars.Any(e => e.Id == id);
         }
     }
 }

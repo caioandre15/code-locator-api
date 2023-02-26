@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Locator.Data\Locator.Data.csproj" />
+    <ProjectReference Include="..\Models\Locator.Models.csproj" />
+  </ItemGroup>
+
 </Project>

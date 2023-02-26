@@ -1,4 +1,4 @@
-﻿using Locator.Business.Models;
+﻿using Locator.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

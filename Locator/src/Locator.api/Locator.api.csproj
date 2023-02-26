@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Locator.Business\Locator.Business.csproj" />
     <ProjectReference Include="..\Locator.Data\Locator.Data.csproj" />
+    <ProjectReference Include="..\Models\Locator.Models.csproj" />
   </ItemGroup>
 
 </Project>

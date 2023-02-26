@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Locator.api.Dtos;
-using Locator.Business.Models;
+using Locator.Models;
 
 namespace Locator.api.AutoMapper
 {

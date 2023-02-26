@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Locator.Business.Models
+namespace Locator.Models
 {
     public abstract class Vehicle : Entity
     {

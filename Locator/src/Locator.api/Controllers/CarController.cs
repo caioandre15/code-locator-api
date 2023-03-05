@@ -17,13 +17,11 @@ namespace Locator.api.Controllers
     [ApiController]
     public class CarController : ControllerBase
     {
-        private readonly DataBaseContext _context;
         private readonly ICarService _carService;
         private readonly IMapper _mapper;
 
-        public CarController(DataBaseContext context, IMapper mapper, ICarService carService)
+        public CarController(IMapper mapper, ICarService carService)
         {
-            _context = context;
             _mapper = mapper;
             _carService = carService;
         }

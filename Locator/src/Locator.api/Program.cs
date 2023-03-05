@@ -1,3 +1,4 @@
+using Locator.api.Auth;
 using Locator.Business.Interface;
 using Locator.Business.Service;
 using Locator.Data.Context;
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<DataBaseContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddIdentityConfiguration(builder.Configuration);
 
 builder.Services.AddScoped<ICarService, CarService>();
 

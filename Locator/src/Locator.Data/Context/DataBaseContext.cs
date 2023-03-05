@@ -11,11 +11,7 @@ namespace Locator.Data.Context
 {
     public class DataBaseContext : DbContext
     {
-        public DataBaseContext(DbContextOptions options)
-        : base(options)
-        {
-
-        }
+        public DataBaseContext(DbContextOptions options) : base(options) {}
 
         public DbSet<Car> Cars { get; set; }
         public DbSet<Characteristic> Characteristics { get; set; }

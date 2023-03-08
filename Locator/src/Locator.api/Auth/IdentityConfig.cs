@@ -1,4 +1,4 @@
-﻿using Locator.api.Data;
+﻿using Locator.Data.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +9,7 @@ namespace Locator.api.Auth
         public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<DataBaseContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             return services;

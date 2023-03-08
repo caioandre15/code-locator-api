@@ -1,4 +1,6 @@
 ﻿using Locator.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Locator.Data.Context
 {
-    public class DataBaseContext : DbContext
+    public class DataBaseContext : IdentityDbContext<IdentityUser>
     {
         public DataBaseContext(DbContextOptions options) : base(options) {}
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Locator.api.Auth
+namespace Locator.Models.Models.Auth
 {
     public class RegisterModel
     {

@@ -1,21 +1,24 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Locator.Business.Interface;
+using Locator.Models.Models.Auth;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Locator.api.Auth
+namespace Locator.Business.Service
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AuthenticateController : ControllerBase
+    public class AuthService : IAuthService
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
-
-        public AuthenticateController(
+        public AuthService(
             UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager,
             IConfiguration configuration)
@@ -24,12 +27,10 @@ namespace Locator.api.Auth
             _roleManager = roleManager;
             _configuration = configuration;
         }
-
-        [HttpPost]
-        [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        public async Task<ResponseLogin> ProcessingLogin(LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.Username);
+
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
@@ -47,22 +48,41 @@ namespace Locator.api.Auth
 
                 var token = GetToken(authClaims);
 
-                return Ok(new
+                return (new ResponseLogin
                 {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
+                    Token = new JwtSecurityTokenHandler().WriteToken(token),
+                    Expiration = token.ValidTo
                 });
             }
-            return Unauthorized();
+
+            return new ResponseLogin();
         }
 
-        [HttpPost]
-        [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        public async Task<ResponseRegister> ProcessingRegister(RegisterModel model)
         {
             var userExists = await _userManager.FindByNameAsync(model.Username);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+                return new ResponseRegister { Status = "Error", Message = "User already exists!" };
+
+            IdentityUser user = new()
+            {
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.Username
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
+            
+            if (!result.Succeeded)
+                return new ResponseRegister { Status = "Error", Message = "User creation failed! Please check user details and try again." };
+
+            return new ResponseRegister { Status = "Success", Message = "User created successfully!" };
+        }
+
+        public async Task<ResponseRegister> ProcessingRegisterAdmin(RegisterModel model)
+        {
+            var userExists = await _userManager.FindByNameAsync(model.Username);
+            if (userExists != null)
+                return new ResponseRegister { Status = "Error", Message = "User already exists!" };
 
             IdentityUser user = new()
             {
@@ -72,28 +92,7 @@ namespace Locator.api.Auth
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
-        }
-
-        [HttpPost]
-        [Route("register-admin")]
-        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
-        {
-            var userExists = await _userManager.FindByNameAsync(model.Username);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
-
-            IdentityUser user = new()
-            {
-                Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
-            };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                return new ResponseRegister { Status = "Error", Message = "User creation failed! Please check user details and try again." };
 
             if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
                 await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
@@ -108,10 +107,10 @@ namespace Locator.api.Auth
             {
                 await _userManager.AddToRoleAsync(user, UserRoles.User);
             }
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
-        }
 
-        private JwtSecurityToken GetToken(List<Claim> authClaims)
+            return new ResponseRegister { Status = "Success", Message = "User created successfully!" };
+        }
+        public JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 

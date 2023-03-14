@@ -1,4 +1,4 @@
-﻿namespace Locator.api.Auth
+﻿namespace Locator.Models.Models.Auth
 {
     public static class UserRoles
     {

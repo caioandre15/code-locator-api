@@ -21,6 +21,7 @@ builder.Services.AddDbContext<DataBaseContext>(options =>
 builder.Services.AddIdentityConfiguration(builder.Configuration);
 
 builder.Services.AddScoped<ICarService, CarService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddAutoMapper(typeof(Program));
  

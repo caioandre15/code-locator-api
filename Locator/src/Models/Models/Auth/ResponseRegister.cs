@@ -1,6 +1,6 @@
-﻿namespace Locator.api.Auth
+﻿namespace Locator.Models.Models.Auth
 {
-    public class Response
+    public class ResponseRegister
     {
         public string? Status { get; set; }
         public string? Message { get; set; }

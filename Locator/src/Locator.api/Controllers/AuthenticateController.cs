@@ -36,7 +36,9 @@ namespace Locator.api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var result = await _authService.ProcessingLogin(model);
+
             if (result.Token == null) return Unauthorized();
+
             return Ok(result);
         }
 

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Locator.Data", "src\Locator
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Locator.Business", "src\Locator.Business\Locator.Business.csproj", "{9C77B844-61FE-4CEC-AE52-ED6A0A63B282}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Locator.Models", "src\Models\Locator.Models.csproj", "{91493FB7-0387-41E6-84E8-295B83A32E3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Locator.Models", "src\Models\Locator.Models.csproj", "{91493FB7-0387-41E6-84E8-295B83A32E3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Locator.Tests", "src\Testes\Locator.Tests\Locator.Tests.csproj", "{B8B2F40B-5608-4B3F-8592-00D48BA6566E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{91493FB7-0387-41E6-84E8-295B83A32E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91493FB7-0387-41E6-84E8-295B83A32E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91493FB7-0387-41E6-84E8-295B83A32E3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8B2F40B-5608-4B3F-8592-00D48BA6566E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8B2F40B-5608-4B3F-8592-00D48BA6566E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8B2F40B-5608-4B3F-8592-00D48BA6566E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8B2F40B-5608-4B3F-8592-00D48BA6566E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

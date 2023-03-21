@@ -110,7 +110,7 @@ namespace Locator.Business.Service
 
             return new ResponseRegister { Status = "Success", Message = "User created successfully!" };
         }
-        public JwtSecurityToken GetToken(List<Claim> authClaims)
+        private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
 

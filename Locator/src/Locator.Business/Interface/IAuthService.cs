@@ -14,6 +14,5 @@ namespace Locator.Business.Interface
         Task<ResponseLogin> ProcessingLogin(LoginModel model);
         Task<ResponseRegister> ProcessingRegister(RegisterModel model);
         Task<ResponseRegister> ProcessingRegisterAdmin(RegisterModel model);
-        JwtSecurityToken GetToken(List<Claim> authClaims);
     }
 }

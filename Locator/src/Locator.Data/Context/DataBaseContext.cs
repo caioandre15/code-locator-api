@@ -15,9 +15,14 @@ namespace Locator.Data.Context
     {
         public DataBaseContext(DbContextOptions options) : base(options) {}
 
-        public DbSet<Car> Cars { get; set; }
-        public DbSet<Characteristic> Characteristics { get; set; }
-        public DbSet<Optional> Opcionals { get; set; }
+        public DataBaseContext()
+        {
+
+        }
+
+        public virtual DbSet<Car> Cars { get; set; }
+        public virtual DbSet<Characteristic> Characteristics { get; set; }
+        public virtual DbSet<Optional> Opcionals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
